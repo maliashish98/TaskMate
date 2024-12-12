@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>TaskMate</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="d-flex justify-content-center id="appname">
+    <h1>TaskMate</h1>
+</div>
+<Div class="d-flex justify-content-center">
+    {% if tasks|length < 1 %}
+    <h2>There are no tasks...Create one below</h2>
+    {% else %}
+    <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Task</th>
+            <th scope="col">Created on </th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+          <tr>
+            <th scope="row">{{ task.id }}</th>
+            <td class="align-middle">{{ task.content }}</td>
+            <td class="align-middle">{{ task.created.strftime("%m/%d/%Y  | %H:%M:%S") }}</td>
+            <td class="align-middle">
+                <a href="/edit/{{ task.id }}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="/delete/{{ task.id }}" class="btn btn-danger btn-sm" >Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</Div>
+<br>
+<div class="d-flex justify-content-center">
+    <form action="/" method="POST">
+        <div class="input-group mb-3">
+            <input type="text" name="content" id="content" class="form-control" placeholder="Add task.." aria-label="Recipient's username" aria-describedby="button-addon2">
+            <input type="submit" value="Add Task" id="btn-add" class="btn btn-success btn-lg btn-block">
+        </div>
+        
+    </form>
+
+</div>
+</div>
+
+
+
+{% endblock %}
